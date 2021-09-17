@@ -106,6 +106,16 @@ flags.DEFINE_boolean('benchmark', False, 'Run multiple JAX model evaluations '
                      'to obtain a timing that excludes the compilation time, '
                      'which should be more indicative of the time required for '
                      'inferencing many proteins.')
+flags.DEFINE_string('docker_user', f"{os.geteuid()}:{os.getegid()}", 'Numerical UNIX user ID with '
+                    'which to run docker container. '
+                    'The output directories will be owned by this user. '
+                    'By default, this is your current user.')
+flags.DEFINE_string('download_dir', None, 'AlphaFold data and params directory.'
+                    ' Set to target of scripts/download_all_databases.sh.')
+flags.DEFINE_string('docker_image_name', 'alphafold', 
+                    'Name of AlphaFold docker image.')
+flags.DEFINE_string('output_dir', '/tmp/alphafold', 
+                    'Path to a directory that will store the results.')
 
 FLAGS = flags.FLAGS
 
@@ -174,6 +184,7 @@ def main(argv):
       image=docker_image_name,
       command=command_args,
       runtime='nvidia' if FLAGS.use_gpu else None,
+      privileged=True,
       remove=True,
       detach=True,
       mounts=mounts,
