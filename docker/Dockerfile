@@ -54,7 +54,7 @@ RUN conda update -qy conda \
     && conda install -y -c conda-forge \
       openmm=7.5.1 \
       cudatoolkit==${CUDA_VERSION} \
-	  cudnn \
+      cudnn \
       pdbfixer \
       pip \
       python=3.7
