@@ -75,7 +75,7 @@ flags.DEFINE_boolean(
     'Whether to read MSAs that have been written to disk. WARNING: This will '
     'not check if the sequence, database or configuration have changed.')
 flags.DEFINE_string(
-	'docker_user', f"{os.geteuid()}:{os.getegid()}", 'Numerical UNIX user ID with '
+    'docker_user', f"{os.geteuid()}:{os.getegid()}", 'Numerical UNIX user ID with '
     'which to run docker container. '
     'The output directories will be owned by this user. '
     'By default, this is your current user.')
@@ -207,8 +207,8 @@ def main(argv):
   container = client.containers.run(
       image=FLAGS.docker_image_name,
       command=command_args,
-	  privileged=True,
-	  user=FLAGS.docker_user,
+      privileged=True,
+      user=FLAGS.docker_user,
       runtime='nvidia' if FLAGS.use_gpu else None,
       remove=True,
       detach=True,
