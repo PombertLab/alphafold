@@ -64,7 +64,8 @@ RUN conda update -qy conda \
       cudatoolkit==${CUDA_VERSION} \
       pdbfixer \
       pip \
-      python=3.7
+      python=3.7 \
+      protobuf==3.20.1
 
 COPY . /app/alphafold
 RUN wget -q -P /app/alphafold/alphafold/common/ \
